@@ -45,6 +45,18 @@ public class ArtistRespController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Artist> createArtistByResp(@RequestBody ArtistRequest artistRequest) {
+        // Validate request
+        /*
+        if (artistRequest.getFirstName() == null || artistRequest.getLastName() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "First name and last name are required");
+        }
+
+        // Check for duplicate artist
+        if (artistRepository.existsByFirstNameAndLastName(artistRequest.getFirstName(), artistRequest.getLastName())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Artist already exists");
+        }
+        // */
+        // Create and save artist
         Artist artist = new Artist(artistRequest.getFirstName(), artistRequest.getLastName());
         return new ResponseEntity<>(artistRepository.save(artist), HttpStatus.CREATED);
     }

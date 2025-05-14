@@ -19,9 +19,22 @@ public class ArtistService {
     
     
     public Artist createArtist(@RequestBody ArtistRequest artistRequest) {
+         // Validate input
+        if (artistRequest.getFirstName() == null || artistRequest.getLastName() == null) {
+            throw new BadRequestException("First name and last name are required");
+        }
+
+        // Check for duplicates
+        if (artistRepository.existsByFirstNameAndLastName(
+                artistRequest.getFirstName(), 
+                artistRequest.getLastName())) {
+            throw new ConflictException("Artist already exists");
+        }
+
+        // Create and save
         Artist artist = new Artist(artistRequest.getFirstName(), artistRequest.getLastName());
-        return artistRepository.save(artist);
-    }
+        return artistRepository.save(artist);        
+   }
 
     public List<Artist> getAllArtists() {
         return artistRepository.findAll();
