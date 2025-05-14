@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 @RequiredArgsConstructor
-public class InventoryControllerTest {
+public class InventoryControllerTests {
 
     @Autowired
     private MockMvc mockMvc;

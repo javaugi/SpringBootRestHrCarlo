@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @SpringBootTest
-public class NonRecalledProductServiceTest {
+public class NonRecalledProductServiceTests {
 
     @Autowired
     ProductService productService;
