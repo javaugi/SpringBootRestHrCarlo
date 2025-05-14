@@ -4,23 +4,7 @@
  */
 package com.jinvindia.inventory;
 
-import org.junit.platform.suite.api.SelectClasses;
-import org.junit.platform.suite.api.Suite;
-import org.junit.platform.suite.api.SuiteDisplayName;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-@Suite
-@SuiteDisplayName("Inventory Test Suite")
-//@SelectPackages({"com.jinvindia.inventory"})
-//*
-@SelectClasses({
-    HrArtistRestTests.class,
-    InventoryControllerTest.class,
-    ProductServiceTests.class,
-    NonRecalledProductServiceTest.class
-})
-// */
 public class AllInventoryTestsSuite {
     // This class remains empty - it's just a configuration class
 }
