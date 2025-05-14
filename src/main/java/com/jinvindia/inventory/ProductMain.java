@@ -36,9 +36,9 @@ public class ProductMain implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Product fanta = createTestProduct("Fanta", 1.2, 10);
-        Product coke = createTestProduct("Coke", 1.5, 20);
-        Product drPepper = createTestProduct("Pepper", 1.8, 30);
+        Product fanta = createTestProduct("Mountain Dew", 1.2, 10);
+        Product coke = createTestProduct("Sprite", 1.5, 20);
+        Product drPepper = createTestProduct("Dr Pepper", 1.8, 30);
 
         // save single entity instance
         fanta = productRepository.save(fanta);
