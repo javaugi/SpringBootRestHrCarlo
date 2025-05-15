@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/v1rbsv/artists")
@@ -78,6 +79,10 @@ public class ArtistRespByServiceController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> deleteArtistByResp(@PathVariable Long id) {
+        if (!artistService.existsById(id)) {
+            //new ResponseEntity<>(ResponseEntity.noContent().build(), HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found");
+        }        
         artistService.deleteArtist(id);
         return ResponseEntity.noContent().build();
     }

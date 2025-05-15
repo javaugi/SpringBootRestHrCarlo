@@ -5,6 +5,7 @@
 package com.jinvindia.inventory.hrank;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,18 +19,27 @@ public class ArtistService {
     private ArtistRepository artistRepository;
     
     
+    public boolean existsByFirstNameAndLastName(String firstName, String lastName) {
+        Optional<Artist> opt = artistRepository.findByFirstNameAndLastName(firstName, lastName);
+        return opt.isPresent() && opt.get().getId() != null && opt.get().getId() > 0;
+    }
+
+    public boolean existsById(Long id) {
+        return artistRepository.existsById(id);
+    }
+    
     public Artist createArtist(@RequestBody ArtistRequest artistRequest) {
          // Validate input
+        /*
         if (artistRequest.getFirstName() == null || artistRequest.getLastName() == null) {
             throw new BadRequestException("First name and last name are required");
         }
 
         // Check for duplicates
-        if (artistRepository.existsByFirstNameAndLastName(
-                artistRequest.getFirstName(), 
-                artistRequest.getLastName())) {
+        if (existsByFirstNameAndLastName(artistRequest.getFirstName(), artistRequest.getLastName())) {
             throw new ConflictException("Artist already exists");
         }
+        // */
 
         // Create and save
         Artist artist = new Artist(artistRequest.getFirstName(), artistRequest.getLastName());

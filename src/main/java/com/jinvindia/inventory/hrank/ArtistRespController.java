@@ -31,9 +31,11 @@ public class ArtistRespController {
     */
 
     private final ArtistRepository artistRepository;
+    private final ArtistService artistService;
 
-    public ArtistRespController(ArtistRepository artistRepository) {
+    public ArtistRespController(ArtistRepository artistRepository, ArtistService artistService) {
         this.artistRepository = artistRepository;
+        this.artistService = artistService;
     }
 
     /*
@@ -48,11 +50,13 @@ public class ArtistRespController {
         // Validate request
         /*
         if (artistRequest.getFirstName() == null || artistRequest.getLastName() == null) {
+            System.out.println("createArtistByResp throws ResponseStatusException HttpStatus.BAD_REQUEST ");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "First name and last name are required");
         }
 
         // Check for duplicate artist
-        if (artistRepository.existsByFirstNameAndLastName(artistRequest.getFirstName(), artistRequest.getLastName())) {
+        if (artistService.existsByFirstNameAndLastName(artistRequest.getFirstName(), artistRequest.getLastName())) {
+            System.out.println("createArtistByResp throws ResponseStatusException HttpStatus.CONFLICT ");
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Artist already exists");
         }
         // */
@@ -92,6 +96,7 @@ public class ArtistRespController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<Void> deleteArtistByResp(@PathVariable Long id) {
         if (!artistRepository.existsById(id)) {
+            //new ResponseEntity<>(ResponseEntity.noContent().build(), HttpStatus.NOT_FOUND);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Artist not found");
         }
         artistRepository.deleteById(id);
